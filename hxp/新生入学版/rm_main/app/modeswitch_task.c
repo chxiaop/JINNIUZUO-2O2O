@@ -30,6 +30,7 @@ ctrl_mode_e ctrl_mode;
 ctrl_mode_e last_ctrl_mode;
 uint8_t house_sw_flag;
 uint8_t retato;
+uint8_t dance_symbol;
 uint8_t Q_key_up,E_key_up;
 void mode_switch_task(void const *argu)
 {
@@ -61,22 +62,17 @@ static void sw1_mode_handler(void)
 		case RC_UP:
 		{
 			ctrl_mode = REMOTER_MODE;
-      if(imu_gimbal.status == 0)
-				ctrl_mode = PROTECT_MODE;
 		}
 		break;
 		case RC_MI:
 		{
-
-			ctrl_mode = PROTECT_MODE;
+      ctrl_mode = CHASSIS_REMOTER_MODE	;
 		}
 		break;
 		case RC_DN:
 		{
 
-			  ctrl_mode = KEYBOARD_MODE;
-       if(imu_gimbal.status == 0)
-				ctrl_mode = PROTECT_MODE;
+			ctrl_mode = PROTECT_MODE;
 		}
 		break;
 		default:
@@ -87,52 +83,67 @@ static void sw1_mode_handler(void)
 
 static void sw2_mode_handler(void)
 { 
-	switch (rc.sw2)
+	if(ctrl_mode == CHASSIS_REMOTER_MODE )
 	{
-		case RC_UP:
-		{
-			//retato = 0;
+		switch (rc.sw2)
+	  {
+		  case RC_UP:
+		  {
+			 retato = 0;
+			 dance_symbol = 0;
+		  }
+			 break;
+		  case RC_MI:
+		  {
+			 retato = 0;
+			 if(!retato)
+			 {
+				dance_symbol = 1;
+			 }
+	    }
+			 break;
+		  case RC_DN:
+		  {
+			dance_symbol = 0;
+			if(!dance_symbol)
+			 {
+				retato = 1;
+		   }
+	    }
+			 break;
+		  default:
+		  {
+		  }
+	  }
+  }
+	if(ctrl_mode == REMOTER_MODE )
+	{
+		switch (rc.sw2)
+	  {
+		  case RC_UP:
+		  {
 			shoot.shoot_speed = FRIC_SPEED_STOP;
 			shoot.shoot_mode = CONTROL_MODE_STOP;
-		}
-		break;
-		case RC_MI:
-		{
-			//retato = 0;
-		 if(ctrl_mode == REMOTER_MODE || ctrl_mode == PROTECT_MODE)	
-	{
-		shoot.shoot_mode = CONTROL_MODE_STOP;
-		shoot.shoot_speed = FRIC_SPEED_LOW;
-	}
-	else
-	{
-			if(vision_msg.vision_mode == little_energy_mode || vision_msg.vision_mode == macro_energy_mode )
-			{
-			shoot.shoot_speed = FRIC_SPEED_ENERGY;
-			}
-		else if(vision_msg.vision_mode == aim_mode)
-		{
-			 if(rc.kb.bit.Q == 1 ) 
-			{
-			shoot.shoot_speed = FRIC_SPEED_HIGH;
-			}
-		   if(rc.kb.bit.E == 1 ) 
-			{
-			shoot.shoot_speed = FRIC_SPEED_LOW;
-			}
-
-		}
-
-	}
-
-		}break;
-		case RC_DN:
-		{
+		  }
+			 break;
+		  case RC_MI:
+		  { 
+		   if(ctrl_mode == REMOTER_MODE || ctrl_mode == PROTECT_MODE)	
+       {
+	    	shoot.shoot_mode = CONTROL_MODE_STOP;
+	    	shoot.shoot_speed = FRIC_SPEED_LOW;
+	     }
+	    }
+			 break;
+		  case RC_DN:
+		  {
 			shoot.shoot_mode = CONTROL_MODE_BULLET;
-		}break;
-		default:
-		{
-		}
+	    }
+			 break;
+		  default:
+		  {
+		  }
+	  }
 	}
 }
 

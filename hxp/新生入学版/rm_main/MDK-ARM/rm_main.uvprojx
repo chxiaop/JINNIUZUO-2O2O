@@ -524,6 +524,11 @@
               <FilePath>..\app\modeswitch_task.c</FilePath>
             </File>
             <File>
+              <FileName>supercap_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\app\supercap_task.c</FilePath>
+            </File>
+            <File>
               <FileName>gimbal_task.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\app\gimbal_task.c</FilePath>
@@ -537,11 +542,6 @@
               <FileName>status_task.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\app\status_task.c</FilePath>
-            </File>
-            <File>
-              <FileName>supercap_task.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\app\supercap_task.c</FilePath>
             </File>
             <File>
               <FileName>judge_send_task.c</FileName>

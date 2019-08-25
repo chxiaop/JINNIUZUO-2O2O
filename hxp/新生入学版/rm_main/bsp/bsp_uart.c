@@ -256,13 +256,13 @@ void uart_receive_handler(UART_HandleTypeDef *huart)
 			status.dbus_status = 1;
 			uart_rx_idle_callback(huart);
 		}
-//		if (huart == &IMU_HUART)
-//		{
-////			test++;
-//			//imu_decoding(imu_buf,IMU_BUFLEN);		//ÍÓÂÝÒÇ´®¿Ú¶ÁÈ¡
-//			status.imu_status = 1;
-//			uart_rx_idle_callback(huart);
-//		}
+		if (huart == &IMU_HUART)
+		{
+//			test++;
+			imu_decoding(imu_buf,IMU_BUFLEN);		//ÍÓÂÝÒÇ´®¿Ú¶ÁÈ¡
+			status.imu_status = 1;
+			uart_rx_idle_callback(huart);
+		}
 		if (huart == &VISION_HUART)
 		{
 			test++;

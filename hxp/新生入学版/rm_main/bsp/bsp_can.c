@@ -78,15 +78,15 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 			encoder_data_handler(&motor_trigger, hcan);
 		}
     break;
-		case RM_IMU_PARAM_ID:
-		case RM_IMU_QUAT_ID:
-		case RM_IMU_GYRO_ID: 
-		case RM_IMU_ACCEL_ID:
-		case RM_IMU_MAG_ID: 
-		{
-			 memcpy(&imu_can_data,&CAN_Rx_data,8);
-			 imudata_decoding(Rx1Message.StdId,Rx1Message.DLC);
-		}
+//		case RM_IMU_PARAM_ID:
+//		case RM_IMU_QUAT_ID:
+//		case RM_IMU_GYRO_ID: 
+//		case RM_IMU_ACCEL_ID:
+//		case RM_IMU_MAG_ID: 
+//		{
+//			 memcpy(&imu_can_data,&CAN_Rx_data,8);
+//			 imudata_decoding(Rx1Message.StdId,Rx1Message.DLC);
+//		}
 
 		default:
     {

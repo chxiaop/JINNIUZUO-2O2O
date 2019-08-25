@@ -50,11 +50,11 @@ void gimbal_param_init(void)
                   4.0f, 0.0005f, 0.0f);
 	
   /* yaw axis motor pid parameter */
-  PID_struct_init(&pid_yaw_angle, POSITION_PID, 15000, 300,
+  PID_struct_init(&pid_yaw_angle, POSITION_PID, 4000, 300,
                   pid_yaw_angle_P, pid_yaw_angle_I, pid_yaw_angle_D); 
   PID_struct_init(&pid_yaw_ecd, POSITION_PID, 500, 300,
                   0.8f, 0.0f, 1.0f); 
-  PID_struct_init(&pid_yaw_spd, POSITION_PID, 28000, 5000,
+  PID_struct_init(&pid_yaw_spd, POSITION_PID, 20000, 5000,
 											pid_yaw_spd_P, pid_yaw_spd_I, pid_yaw_spd_D);
 	
 	PID_struct_init(&pid_yaw_aim, POSITION_PID, 50000, 200,
@@ -104,7 +104,15 @@ void gimbal_task(void const *argu)
 			gimbal_control(GIMBAL_REMOTER);
 			
 			 taskEXIT_CRITICAL();
-		}break;		
+		}break;	
+    case CHASSIS_REMOTER_MODE:
+		{
+			 taskENTER_CRITICAL();
+			
+			gimbal_control(GIMBAL_REMOTER);
+			
+			 taskEXIT_CRITICAL();
+		}break;			
 		case KEYBOARD_MODE:
 		{
 			taskENTER_CRITICAL();
@@ -209,7 +217,7 @@ void gimbal_control(gimbal_mode_e gimbal_mode)
 		}break;
 	}
 	gimbal.current[0] = -1.0f*pid_yaw_spd.pos_out;	//�����������Զ�������ǽ��ٶ�
-	gimbal.current[1] = -1.0f*pid_pit_spd.pos_out;
+	gimbal.current[1] = pid_pit_spd.pos_out;
 }
 
 void normal_calcu()
@@ -225,7 +233,7 @@ void normal_calcu()
 	//pit spd
 	gimbal.pid.pit_spd_ref = pid_pit_ecd.pos_out; 	//λ�û����Ϊ�ٶȻ��趨
 	//gimbal.pid.pit_spd_ref = 0; 
-	gimbal.pid.pit_spd_fdb = gimbal.sensor.pit_palstance;	//�����ǽ��ٶȷ���
+	gimbal.pid.pit_spd_fdb = -1.0f*gimbal.sensor.pit_palstance;	//�����ǽ��ٶȷ���
 	pid_calc(&pid_pit_spd, gimbal.pid.pit_spd_fdb, gimbal.pid.pit_spd_ref);//�ٶȻ�
 	
 	if(gimbal.pid.yaw_angle_ref<0)gimbal.pid.yaw_angle_ref += 360;	//����������������

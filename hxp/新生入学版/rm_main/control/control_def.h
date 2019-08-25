@@ -13,7 +13,7 @@
 
 #include "stm32f4xx_hal.h"
 
-#define NO5_DEF //更改参数~
+#define NO3_DEF //更改参数~
 
 #ifdef NO4_DEF //
 /***********shoot************/
@@ -85,15 +85,15 @@
 #define pid_pit_angle_I 0.0f
 #define pid_pit_angle_D 0.0f
 
-#define pid_pit_ecd_P 6.0f
+#define pid_pit_ecd_P 0.0f
 #define pid_pit_ecd_I 0.0f
 #define pid_pit_ecd_D 0.0f
 
-#define pid_pit_spd_P 3.0f
-#define pid_pit_spd_I 0.1f
+#define pid_pit_spd_P 0.0f
+#define pid_pit_spd_I 0.0f
 #define pid_pit_spd_D 0.0f
 
-#define pid_yaw_angle_P 200.0f
+#define pid_yaw_angle_P 0.0f
 #define pid_yaw_angle_I 0.0f
 #define pid_yaw_angle_D 0.0f
 
@@ -103,16 +103,16 @@
 
 
 
-#define pid_yaw_spd_P 30.0f
-#define pid_yaw_spd_I 0.1f
+#define pid_yaw_spd_P 0.0f
+#define pid_yaw_spd_I 0.0f
 #define pid_yaw_spd_D 0.0f
 
 #define pid_yaw_vision_P 0.0f
 #define pid_yaw_vision_I 0.0f
 #define pid_yaw_vision_D 0.0f
 
-#define pid_pitch_vision_P 0.3f
-#define pid_pitch_vision_I 0.00005f
+#define pid_pitch_vision_P 0.f
+#define pid_pitch_vision_I 0.0f
 #define pid_pitch_vision_D 0.0f
 #endif
 #ifdef NO3_DEF
@@ -135,24 +135,24 @@
 #define pid_pit_angle_I 0.0f
 #define pid_pit_angle_D 0.0f
 
-#define pid_pit_ecd_P 6.0f
+#define pid_pit_ecd_P 1.0f
 #define pid_pit_ecd_I 0.0f
 #define pid_pit_ecd_D 0.0f
 
-#define pid_pit_spd_P 3.0f
+#define pid_pit_spd_P 25.0f
 #define pid_pit_spd_I 0.1f
 #define pid_pit_spd_D 0.0f
 
-#define pid_yaw_angle_P 200.0f
+#define pid_yaw_angle_P 25.0f
 #define pid_yaw_angle_I 0.0f
-#define pid_yaw_angle_D 0.0f
+#define pid_yaw_angle_D 70.0f
 
 #define pid_yaw_ecd_P 0.0f
 #define pid_yaw_ecd_I 0.0f
 #define pid_yaw_ecd_D 0.0f
 
-#define pid_yaw_spd_P 30.0f
-#define pid_yaw_spd_I 0.1f
+#define pid_yaw_spd_P 90.0f
+#define pid_yaw_spd_I 0.3f
 #define pid_yaw_spd_D 0.0f
 
 #define pid_yaw_vision_P 0.0f

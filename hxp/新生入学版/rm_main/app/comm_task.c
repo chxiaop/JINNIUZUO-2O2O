@@ -37,15 +37,15 @@ void can_msg_send_task(void const *argu)
 
       if (event.value.signals & GIMBAL_MOTOR_MSG_SEND)
       {
-				//send_gimbal_motor_ctrl_message(motor_cur.gimbal_cur);
+				send_gimbal_motor_ctrl_message(motor_cur.gimbal_cur);
       }
 			if (event.value.signals & CHASSIS_MOTOR_MSG_SEND)
       {
-				//send_chassis_motor_ctrl_message(motor_cur.chassis_cur);
+				send_chassis_motor_ctrl_message(motor_cur.chassis_cur);
 			}
 			if (event.value.signals & SUPERCAP_CONTROL_MSG_SEND)
       {
-        //send_supercap_message(supercap_control);
+        send_supercap_message(supercap_control);
 			}
 		 
 		}

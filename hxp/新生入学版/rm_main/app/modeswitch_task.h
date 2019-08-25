@@ -24,6 +24,7 @@ typedef enum
 
 typedef enum
 {
+	CHASSIS_REMOTER_MODE, //底盘花式动作
   PROTECT_MODE,       	     
 	LOCK_MODE,					//云台锁定在中点，底盘自身运动			
   SEPARATE_MODE,      //底盘云台分离，底盘跟随云台

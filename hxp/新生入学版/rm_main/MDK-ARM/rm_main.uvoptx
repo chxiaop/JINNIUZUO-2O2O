@@ -215,6 +215,36 @@
           <WinNumber>1</WinNumber>
           <ItemText>imu_gimbal</ItemText>
         </Ww>
+        <Ww>
+          <count>12</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>ctrl_mode</ItemText>
+        </Ww>
+        <Ww>
+          <count>13</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>retato</ItemText>
+        </Ww>
+        <Ww>
+          <count>14</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>dance_symbol</ItemText>
+        </Ww>
+        <Ww>
+          <count>15</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>pid_pit_spd</ItemText>
+        </Ww>
+        <Ww>
+          <count>16</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>moto_pit,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>17</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>gimbal.pid</ItemText>
+        </Ww>
       </WatchWindow1>
       <WatchWindow2>
         <Ww>
@@ -608,6 +638,18 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
+      <PathWithFileName>..\app\supercap_task.c</PathWithFileName>
+      <FilenameWithoutPath>supercap_task.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>5</GroupNumber>
+      <FileNumber>26</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
       <PathWithFileName>..\app\gimbal_task.c</PathWithFileName>
       <FilenameWithoutPath>gimbal_task.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
@@ -615,7 +657,7 @@
     </File>
     <File>
       <GroupNumber>5</GroupNumber>
-      <FileNumber>26</FileNumber>
+      <FileNumber>27</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -627,25 +669,13 @@
     </File>
     <File>
       <GroupNumber>5</GroupNumber>
-      <FileNumber>27</FileNumber>
+      <FileNumber>28</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>..\app\status_task.c</PathWithFileName>
       <FilenameWithoutPath>status_task.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>28</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\app\supercap_task.c</PathWithFileName>
-      <FilenameWithoutPath>supercap_task.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

@@ -36,6 +36,7 @@ int8_t Top_flag = 0 ;
 uint8_t F_key_up = 1;
 double retato_x;
 extern uint8_t retato;
+extern uint8_t dance_symbol;
 extern TaskHandle_t can_msg_send_task_t;
 extern send_judge_t    judge_send_mesg;
 
@@ -112,6 +113,7 @@ void chassis_task(void const *argu)
      
 			break;
 		}		
+		case CHASSIS_REMOTER_MODE:
 		case REMOTER_MODE:
 		{
 				chassis.angle_error =  chassis.position_error * (2.0f*PI/8191.0f);
@@ -220,7 +222,7 @@ void sparate_move(void)
 }
 void dance_move(void)
 {
-	if(rc.kb.bit.CTRL)
+	if(dance_symbol)
 	{
 	  if(dance_flag == 1 && dance_error<30)
 	  {
