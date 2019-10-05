@@ -58,7 +58,7 @@ void vision_message(uint8_t *pbuff)
 			}
 			else
 			{
-				vision_msg.vision_pitch =pbuff[1]*256+pbuff[2];
+				vision_msg.vision_pitch = pbuff[1]*256+pbuff[2];
 			}
 			if((pbuff[3]&0x80)!=0)
 			{

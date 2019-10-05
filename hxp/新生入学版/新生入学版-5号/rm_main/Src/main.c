@@ -67,6 +67,7 @@
 #include "bsp_powerlimit.h"
 #include "visionfire_task.h"
 #include "judge_unpack_task.h"
+#include "flagCheck_task.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/

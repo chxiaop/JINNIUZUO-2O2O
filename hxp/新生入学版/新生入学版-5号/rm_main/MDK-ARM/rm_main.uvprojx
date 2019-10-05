@@ -553,6 +553,11 @@
               <FileType>1</FileType>
               <FilePath>..\app\judge_unpack_task.c</FilePath>
             </File>
+            <File>
+              <FileName>flagCheck_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\app\flagCheck_task.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

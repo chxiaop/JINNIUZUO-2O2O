@@ -13,7 +13,7 @@
 
 #include "stm32f4xx_hal.h"
 
-#define NO3_DEF //更改参数~
+#define NO5_DEF //更改参数~
 
 #ifdef NO4_DEF //
 /***********shoot************/
@@ -67,8 +67,8 @@
 #endif
 #ifdef NO5_DEF  
 /***********shoot************/
-#define COVER_START 500
-#define COVER_END 1500
+#define COVER_START 1200
+#define COVER_END 2200
 /***********chassis**********/
 #define rc_ch2_scale 5
 #define rc_ch1_scale 10
@@ -77,23 +77,23 @@
 #define rc_ch4_scale 0.025f
 #define rc_ch3_scale -0.0005f
 
-#define gimbal_pit_limit_down    1550
-#define gimbal_pit_center_offset 2050
+#define gimbal_pit_limit_down    5700
+#define gimbal_pit_center_offset 6200
 #define gimbal_yaw_center_offset 6800
 /*********PID-Gimbal*********/
 #define pid_pit_angle_P 0.0f
 #define pid_pit_angle_I 0.0f
 #define pid_pit_angle_D 0.0f
 
-#define pid_pit_ecd_P 0.0f
+#define pid_pit_ecd_P 2.5f
 #define pid_pit_ecd_I 0.0f
 #define pid_pit_ecd_D 0.0f
 
-#define pid_pit_spd_P 0.0f
-#define pid_pit_spd_I 0.0f
+#define pid_pit_spd_P 20.0f
+#define pid_pit_spd_I 0.03f
 #define pid_pit_spd_D 0.0f
 
-#define pid_yaw_angle_P 0.0f
+#define pid_yaw_angle_P 50.0f
 #define pid_yaw_angle_I 0.0f
 #define pid_yaw_angle_D 0.0f
 
@@ -103,8 +103,8 @@
 
 
 
-#define pid_yaw_spd_P 0.0f
-#define pid_yaw_spd_I 0.0f
+#define pid_yaw_spd_P 50.0f
+#define pid_yaw_spd_I 0.05f
 #define pid_yaw_spd_D 0.0f
 
 #define pid_yaw_vision_P 0.0f

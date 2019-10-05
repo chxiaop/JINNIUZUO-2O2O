@@ -45,7 +45,7 @@ void gimbal_param_init(void)
                   pid_pit_spd_P, pid_pit_spd_I, 0.0);
 	
 	PID_struct_init(&pid_pitch_aim, POSITION_PID,15000, 1000,
-                  5.0f, 0.00005f, 0.0f);
+                  1.0f, 0.0000f, 0.0f);//5
 		PID_struct_init(&pid_pitch_energy, POSITION_PID,15000, 1000,
                   4.0f, 0.0005f, 0.0f);
 	
@@ -57,8 +57,8 @@ void gimbal_param_init(void)
   PID_struct_init(&pid_yaw_spd, POSITION_PID, 20000, 5000,
 											pid_yaw_spd_P, pid_yaw_spd_I, pid_yaw_spd_D);
 	
-	PID_struct_init(&pid_yaw_aim, POSITION_PID, 50000, 200,
-                 100.0f, 0.01f, 0.0f);
+	PID_struct_init(&pid_yaw_aim, POSITION_PID, 10000, 200,
+                 10.0f, 0.01f, 0.0f);//100
 	PID_struct_init(&pid_yaw_energy, POSITION_PID, 15000, 200,
                   100.0f, 0.1f, 0.0f);
 
@@ -109,7 +109,7 @@ void gimbal_task(void const *argu)
 		{
 			 taskENTER_CRITICAL();
 			
-			gimbal_control(GIMBAL_REMOTER);
+					gimbal_control(GIMBAL_VISION);
 			
 			 taskEXIT_CRITICAL();
 		}break;			
@@ -217,7 +217,7 @@ void gimbal_control(gimbal_mode_e gimbal_mode)
 		}break;
 	}
 	gimbal.current[0] = -1.0f*pid_yaw_spd.pos_out;	//�����������Զ�������ǽ��ٶ�
-	gimbal.current[1] = pid_pit_spd.pos_out;
+	gimbal.current[1] = -1.0f*pid_pit_spd.pos_out;
 }
 
 void normal_calcu()
@@ -251,20 +251,20 @@ void normal_calcu()
 void vision_calcu(pid_t pid_pitch_vision,pid_t pid_yaw_vision)
 {
 	// offset_table(vision_msg.vision_distance);
-	 KalmanFilter(imu_gimbal.yaw - vision_msg.vision_yaw/100.0f,kal_yaw.Q,kal_yaw.R);
-	 kal_predict =  4.0f * (imu_gimbal.yaw - vision_msg.vision_yaw/100.0f - kal_yaw.x_now);
-	kal_predict1 = kal_predict;
-	 kal_predict = kal_predict > 5 ? 5:kal_predict;
-	 kal_predict = kal_predict < -5 ? -5:kal_predict;
-	
+//	 KalmanFilter(imu_gimbal.yaw - vision_msg.vision_yaw/100.0f,kal_yaw.Q,kal_yaw.R);
+//	 kal_predict =  4.0f * (imu_gimbal.yaw - vision_msg.vision_yaw/100.0f - kal_yaw.x_now);
+//	kal_predict1 = kal_predict;
+//	 kal_predict = kal_predict > 5 ? 5:kal_predict;
+//	 kal_predict = kal_predict < -5 ? -5:kal_predict;
+//	
 //   KalmanFilter(imu_gimbal.yaw - vision_msg.vision_yaw/100.0f,kal_yaw.Q,kal_yaw.R);
-	// kal_predict =  3.5f * (imu_gimbal.yaw - vision_msg.vision_yaw/100.0f - kal_yaw.x_now);
+//	 kal_predict =  3.5f * (imu_gimbal.yaw - vision_msg.vision_yaw/100.0f - kal_yaw.x_now);
 //	 kal_predict = kal_predict > 3 ? 3:kal_predict;
 //	 kal_predict = kal_predict < -3 ? -3:kal_predict;
   //if(vision_msg.vision_distance>= 0)
 	pid_calc(&pid_pitch_vision,gimbal.pid.pit_ecd_fdb , gimbal.pid.pit_ecd_fdb - (vision_msg.vision_pitch * 22.75f)/100.0f );//�����Ӿ���
 	gimbal.pid.pit_spd_ref = pid_pitch_vision.pos_out; 	//λ�û����Ϊ�ٶȻ��趨
-	gimbal.pid.pit_spd_fdb = gimbal.sensor.pit_palstance;	//�����ǽ��ٶȷ���
+	gimbal.pid.pit_spd_fdb = -1.0f*gimbal.sensor.pit_palstance;	//�����ǽ��ٶȷ���
 	pid_calc(&pid_pit_spd, gimbal.pid.pit_spd_fdb, gimbal.pid.pit_spd_ref);//�ٶȻ�
   //if(vision_msg.vision_distance>= 0)
 	gimbal.pid.yaw_angle_fdb = imu_gimbal.yaw;		//�Ƕȷ���Ϊyaw�Ƕ�
@@ -277,13 +277,13 @@ void vision_calcu(pid_t pid_pitch_vision,pid_t pid_yaw_vision)
 		vision_msg.aim_flag = 1;
 		vision_msg.aim_count = 0;
 	}
-	pid_calc(&pid_yaw_vision, gimbal.pid.yaw_angle_fdb,  gimbal.pid.yaw_angle_fdb - vision_msg.vision_yaw/100.0f + kal_predict);
+	pid_calc(&pid_yaw_vision, gimbal.pid.yaw_angle_fdb,  gimbal.pid.yaw_angle_fdb + vision_msg.vision_yaw/100.0f);//+ kal_predict
 	Befor =  gimbal.pid.yaw_angle_fdb - vision_msg.vision_yaw/100.0f ;
 	After =  gimbal.pid.yaw_angle_fdb - vision_msg.vision_yaw/100.0f +kal_predict;//�Ӿ���
 	}
 	else 
 	{
-		pid_calc(&pid_yaw_vision, gimbal.pid.yaw_angle_fdb,  gimbal.pid.yaw_angle_fdb - vision_msg.vision_yaw/100.0f);
+		pid_calc(&pid_yaw_vision, gimbal.pid.yaw_angle_fdb,  gimbal.pid.yaw_angle_fdb + vision_msg.vision_yaw/100.0f);
   }
   gimbal.pid.yaw_spd_ref = pid_yaw_vision.pos_out;	//�ǶȻ����Ϊ�ٶȻ��趨
   gimbal.pid.yaw_spd_fdb = gimbal.sensor.yaw_palstance;	//�����ǽ��ٶȷ���

@@ -15,6 +15,7 @@
 #include "data_fifo.h"
 #include "string.h"
 #include "stdio.h"
+#include "flagCheck_task.h"
 
 #define UP_REG_ID    0xA0  //up layer regional id
 #define DN_REG_ID    0xA5  //down layer regional id
@@ -42,7 +43,7 @@ int fifo_overflow = 0;
 
 
 void judge_unpack_task(void const *argu)
-{
+{flag.check.a4=1;
   osEvent event;
   
   /* open judge uart receive it */

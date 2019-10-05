@@ -222,7 +222,7 @@ void sparate_move(void)
 }
 void dance_move(void)
 {
-	if(dance_symbol)
+	if(rc.kb.bit.CTRL)
 	{
 	  if(dance_flag == 1 && dance_error<30)
 	  {
@@ -249,6 +249,7 @@ void dance_move(void)
 		dance_error = 0;
 	}
 }
+
 
 void chance_Top(void)
 {

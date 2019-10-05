@@ -146,42 +146,42 @@ void judgement_data_handler(uint8_t *p_frame)
 	{
 		 case Hero_R1:
 		 {
-			 Stu_Client_ID=Hero_CLient_R1;
+			 Stu_Client_ID=Hero_CLient_R1;   //0x0101
 		 }
 		 break;
 		 case Engineer_R2:
 		 {
-			 Stu_Client_ID=Engineer_CLient_R2;
+			 Stu_Client_ID=Engineer_CLient_R2; //0x0102
 		 }
 		 break;
 		 case Standard_R3:
 		 {
-			 Stu_Client_ID=Standard_CLient_R3;
+			 Stu_Client_ID=Standard_CLient_R3;//0x0103
 		 }
 		 break;
 		 case Standard_R4:
 		 {
-			 Stu_Client_ID=Standard_CLient_R4;
+			 Stu_Client_ID=Standard_CLient_R4; //0x0104
 		 }
 		 break;
 		 case Standard_R5:
 		 {
-			 Stu_Client_ID=Standard_CLient_R5;
+			 Stu_Client_ID=Standard_CLient_R5;//0x0105
 		 }
 		 break;
 		 case Aerial_R6:
 		 {
-			 Stu_Client_ID=Aerial_CLient_R6;
+			 Stu_Client_ID=Aerial_CLient_R6;//0x0106
 		 }
 		 break;
 		 case Hero_B1:
 		 {
-			 Stu_Client_ID=Hero_CLient_B1;
+			 Stu_Client_ID=Hero_CLient_B1;//0x0111
 		 }
 		 break;
 		 case Engineer_B2:
 		 {
-			 Stu_Client_ID=Engineer_CLient_B2;
+			 Stu_Client_ID=Engineer_CLient_B2;//0x0112
 		 }
 		 break;
 		 case Standard_B3:

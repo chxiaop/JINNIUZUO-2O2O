@@ -68,6 +68,7 @@
 #include "judge_unpack_task.h"
 #include "judgement_info.h"
 #include "judge_send_task.h"
+#include "flagCheck_task.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -87,14 +88,16 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
-osThreadId can_msg_send_task_t;
-osThreadId mode_sw_task_t;
+osThreadId can_msg_send_task_t;    //CAN通信任务
+osThreadId mode_sw_task_t;         //遥控检测任务
 osThreadId vision_fire_t;
 osThreadId status_task_t;
+osThreadId flag_check_task_t;      //状态检测任务
+
 TaskHandle_t judge_unpack_task_t;
 osTimerId judge_sendTimer_id;
 osTimerId chassis_timer_id;
-osTimerId gimbal_timer_id;
+osTimerId gimbal_timer_id;         //云台软件定时器
 osTimerId shoot_timer_id;
 osTimerId supercap_timer_id;
 /* USER CODE END Variables */
@@ -156,20 +159,23 @@ void MX_FREERTOS_Init(void) {
   /* add threads, ... */
 			 /* high priority task */
 		
-	 osThreadDef(canTask, can_msg_send_task, osPriorityAboveNormal, 0, 512);
+	 osThreadDef(canTask, can_msg_send_task, osPriorityAboveNormal, 0, 256);
   can_msg_send_task_t = osThreadCreate(osThread(canTask), NULL);
 	
-	 osThreadDef(visionTask, vision_fire_task, osPriorityAboveNormal, 0, 512);
+	 osThreadDef(flagTask, flag_check_task, osPriorityAboveNormal, 0, 256);
+  flag_check_task_t = osThreadCreate(osThread(flagTask), NULL);
+
+   osThreadDef(visionTask, vision_fire_task, osPriorityAboveNormal, 0, 256);
   osThreadId vision_fire_t = osThreadCreate(osThread(visionTask), NULL);
 		
 	 	 /* low priority task */
-	  osThreadDef(unpackTask, judge_unpack_task, osPriorityNormal, 0, 512);
+	  osThreadDef(unpackTask, judge_unpack_task, osPriorityNormal, 0, 256);
   judge_unpack_task_t = osThreadCreate(osThread(unpackTask), NULL);
 	
-	 osThreadDef(modeTask, mode_switch_task, osPriorityNormal, 0, 512);
+	 osThreadDef(modeTask, mode_switch_task, osPriorityNormal, 0, 256);
 	mode_sw_task_t = osThreadCreate(osThread(modeTask), NULL);
-
-	 osThreadDef(statusTask, status_task, osPriorityLow, 0, 512);
+	
+	 osThreadDef(statusTask, status_task, osPriorityLow, 0, 256);
 	status_task_t = osThreadCreate(osThread(statusTask), NULL);
 
 	 		taskEXIT_CRITICAL();

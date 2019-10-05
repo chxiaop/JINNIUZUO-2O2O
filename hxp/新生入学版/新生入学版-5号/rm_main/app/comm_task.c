@@ -12,10 +12,10 @@
 #include "bsp_can.h"
 #include "cmsis_os.h"
 #include "pid.h"
+#include "flagCheck_task.h"
 
 motor_current_t motor_cur;
 supercap_message_t supercap_control;
-
 
 /**
   * @brief can_msg_send_task
@@ -25,6 +25,7 @@ supercap_message_t supercap_control;
   */
 void can_msg_send_task(void const *argu)
 {
+	flag.check.a2=1;
 	osEvent event;
 	for(;;)
   {
@@ -32,23 +33,25 @@ void can_msg_send_task(void const *argu)
 		                     CHASSIS_MOTOR_MSG_SEND | \
 		                     SHOOT_CONTROL_MSG_SEND | \
 		                     SUPERCAP_CONTROL_MSG_SEND, osWaitForever);
-		if (event.status == osEventSignal)
-    {
+		if(event.status == osEventSignal)
+		{
+			if (flag.unlock)
+			{
 
-      if (event.value.signals & GIMBAL_MOTOR_MSG_SEND)
-      {
-				send_gimbal_motor_ctrl_message(motor_cur.gimbal_cur);
-      }
-			if (event.value.signals & CHASSIS_MOTOR_MSG_SEND)
-      {
-				send_chassis_motor_ctrl_message(motor_cur.chassis_cur);
+				if (event.value.signals & GIMBAL_MOTOR_MSG_SEND)
+				{
+					send_gimbal_motor_ctrl_message(motor_cur.gimbal_cur);
+				}
+				if (event.value.signals & CHASSIS_MOTOR_MSG_SEND)
+				{
+					send_chassis_motor_ctrl_message(motor_cur.chassis_cur);
+				}
+				if (event.value.signals & SUPERCAP_CONTROL_MSG_SEND)
+				{
+					send_supercap_message(supercap_control);
+				} 
 			}
-			if (event.value.signals & SUPERCAP_CONTROL_MSG_SEND)
-      {
-        send_supercap_message(supercap_control);
-			}
-		 
-		}
+	  } 
 	}
 }
 
@@ -69,7 +72,7 @@ void send_gimbal_motor_ctrl_message(int16_t gimbal_cur[])
   /* 0: yaw motor current
      1: pitch motor current
      2: trigger motor current*/
-	send_gimbal_cur(gimbal_cur[0], gimbal_cur[1], gimbal_cur[2]);
+	send_gimbal_cur(gimbal_cur[0], gimbal_cur[1], gimbal_cur[2]);//gimbal_cur[0]
 
 }
 
